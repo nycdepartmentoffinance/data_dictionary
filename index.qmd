@@ -1,0 +1,28 @@
+---
+title: "Data Dictionary"
+format: 
+  html:
+    page-layout: full
+editor: source
+
+execute:
+  freeze: auto
+---
+
+```{r, include=FALSE}
+library(dplyr)
+library(readr)
+library(DT)
+
+table_data <- readr::read_csv("data_dictionary_table_data.csv")
+```
+
+
+```{r}
+#| echo: false
+
+DT::datatable(table_data, escape = FALSE, filter = 'top', rownames = FALSE)
+```
+
+
+

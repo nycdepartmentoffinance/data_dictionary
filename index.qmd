@@ -1,5 +1,5 @@
 ---
-title: "Data Dictionary"
+title: "Database Table Schema"
 format: 
   html:
     page-layout: full
@@ -8,6 +8,10 @@ editor: source
 execute:
   freeze: auto
 ---
+
+The table below includes a list of all database tables currently available in Vision8 (production, test, sandbox), Financial Data Warehouse (fdw), and IAS.
+
+Use the search functionality to look for a specific type of table (e.g. "parcel_extension") or filter by database or schema to explore what tables exist in each resources.
 
 ```{r, include=FALSE}
 library(dplyr)
@@ -18,7 +22,6 @@ table_data <- readr::read_csv("data_dictionary_table_data.csv") %>%
     select(DATABASE, DATABASE_NAME, SCHEMA, NAME, TYPE)
 ```
 
-
 ```{r}
 #| echo: false
 #| warning: false
@@ -28,6 +31,3 @@ DT::datatable(table_data, escape = FALSE, filter = 'top', rownames = FALSE,
               options = list(paging = FALSE, scrollCollapse = TRUE)
               )
 ```
-
-
-

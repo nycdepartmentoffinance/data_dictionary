@@ -9,9 +9,9 @@ execute:
   freeze: auto
 ---
 
-The table below includes a list of all database tables currently available in Vision8 (production, test, sandbox), Financial Data Warehouse (fdw), and IAS.
+The table below includes a list of all database tables currently available in Vision8 (production, test, sandbox), Financial Data Warehouse (fdw), and IAS (ias).
 
-Use the search functionality to look for a specific type of table (e.g. "parcel_extension") or filter by database or schema to explore what tables exist in each resources.
+Use the search functionality to look for a specific type of table (e.g. "parcel_extension") or filter by database or schema to explore what database tables exist in each resource.
 
 ```{r, include=FALSE}
 library(dplyr)

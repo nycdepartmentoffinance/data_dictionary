@@ -21,8 +21,12 @@ table_data <- readr::read_csv("data_dictionary_table_data.csv") %>%
 
 ```{r}
 #| echo: false
+#| warning: false
 
-DT::datatable(table_data, escape = FALSE, filter = 'top', rownames = FALSE)
+DT::datatable(table_data, escape = FALSE, filter = 'top', rownames = FALSE,
+              #options = list(pageLength = 100, lengthMenu = list(list(100, 250, 500, -1), list(100, 250, 500, 'All')))
+              options = list(paging = FALSE, scrollCollapse = TRUE)
+              )
 ```
 
 

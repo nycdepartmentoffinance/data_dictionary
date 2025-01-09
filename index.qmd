@@ -14,7 +14,8 @@ library(dplyr)
 library(readr)
 library(DT)
 
-table_data <- readr::read_csv("data_dictionary_table_data.csv")
+table_data <- readr::read_csv("data_dictionary_table_data.csv") %>% 
+    select(DATABASE, DATABASE_NAME, SCHEMA, NAME, TYPE)
 ```
 
 

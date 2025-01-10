@@ -9,17 +9,22 @@ execute:
   freeze: auto
 ---
 
-The table below includes a list of all database tables currently available in Vision8 (production, test, sandbox), Financial Data Warehouse (fdw), and IAS (ias).
+The table below includes a list of database tables currently available in Vision8 (`V8_NEWYORK_NY_LIVE`), Financial Data Warehouse (`FDW`), and IAS (`IAS`).
 
-Use the search functionality to look for a specific type of table (e.g. "parcel_extension") or filter by database or schema to explore what database tables exist in each resource.
+Use the search bar below to look for a specific type of table (e.g. `parcel_extension`) across the different databases or filter by database explore which tables exist in each resource. 
+
+To view more column names than display below, hover over the `COLUMN NAMES` value of table you are interested in. 
 
 ```{r, include=FALSE}
 library(dplyr)
 library(readr)
 library(DT)
 
-table_data <- readr::read_csv("data_dictionary_table_data.csv") %>% 
-    select(DATABASE, DATABASE_NAME, SCHEMA, NAME, TYPE)
+#re-run every now and then to update df - note: might take a few minutes (especially because of IAS)
+#source("generate_table_list.R")
+
+table_data <- readr::read_csv("table_list.csv") %>% 
+    select(-1)
 ```
 
 ```{r}
@@ -27,7 +32,28 @@ table_data <- readr::read_csv("data_dictionary_table_data.csv") %>%
 #| warning: false
 
 DT::datatable(table_data, escape = FALSE, filter = 'top', rownames = FALSE,
-              #options = list(pageLength = 100, lengthMenu = list(list(100, 250, 500, -1), list(100, 250, 500, 'All')))
-              options = list(paging = FALSE, scrollCollapse = TRUE)
-              )
+              options = list(paging = FALSE, scrollCollapse = TRUE,
+                             columnDefs = list(
+                                 # width limit for column names
+                                 list(
+                                  targets = 5,
+                                  render = JS(
+                                    "function(data, type, row, meta) {",
+                                    "return type === 'display' && data.length > 15 ?",
+                                    "'<span title=\"' + data + '\">' + data.substr(0, 15) + '...</span>' : data;",
+                                    "}")),
+                                 # width limit for table name
+                                 list(
+                                  targets = 2,
+                                  render = JS(
+                                    "function(data, type, row, meta) {",
+                                    "return type === 'display' && data.length > 20 ?",
+                                    "'<span title=\"' + data + '\">' + data.substr(0, 20) + '...</span>' : data;",
+                                    "}"))
+                                ))
+              ) %>% 
+    formatStyle(columns = "PREFIX", `max-width` = '60px') %>% 
+    formatStyle(columns = "COLS", `max-width` = '60px')
 ```
+
+
